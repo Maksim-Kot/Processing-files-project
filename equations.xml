@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<listWrapper>
+    <equation>
+        <equation>x + y = 10</equation>
+        <result>7</result>
+        <variables>x, y</variables>
+    </equation>
+    <equation>
+        <equation>2 * a = 8</equation>
+        <result>4</result>
+        <variables>a</variables>
+    </equation>
+</listWrapper>
