@@ -5,6 +5,8 @@ import java.util.List;
 
 import static org.example.JsonReadWrite.readFromJSONFile;
 import static org.example.JsonReadWrite.writeToJSONFile;
+import static org.example.MyJsonReadWrite.myReadFromJSONFile;
+import static org.example.MyJsonReadWrite.myWriteToJSONFile;
 import static org.example.MyXMLReadWrite.myReadFromXMLFile;
 import static org.example.MyXMLReadWrite.myWriteToXMLFile;
 import static org.example.TXTReadWrite.readFromTXTFile;
@@ -22,10 +24,10 @@ public class Main {
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
 
-        writeToJSONFile(equations, "equations.json");
+        myWriteToJSONFile(equations, "myequations.json");
 
 
-        List<MathEquation> equationsjson = readFromJSONFile("equations.json");
+        List<MathEquation> equationsjson = readFromJSONFile("myequations.json");
         if (equationsjson != null)
         {
             for (MathEquation equation : equationsjson)
