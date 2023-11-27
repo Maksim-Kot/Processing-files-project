@@ -5,26 +5,30 @@ import java.util.List;
 
 import static org.example.JsonReadWrite.readFromJSONFile;
 import static org.example.JsonReadWrite.writeToJSONFile;
+import static org.example.MyXMLReadWrite.myReadFromXMLFile;
+import static org.example.MyXMLReadWrite.myWriteToXMLFile;
 import static org.example.TXTReadWrite.readFromTXTFile;
 import static org.example.TXTReadWrite.writeToTXTFile;
-import static org.example.XMLReadWrite.readFromXML;
-import static org.example.XMLReadWrite.writeToXML;
+import static org.example.XMLReadWrite.readFromXMLFile;
+import static org.example.XMLReadWrite.writeToXMLFile;
 
 
 public class Main {
     public static void main(String[] args)
     {
-        List<MathEquation> equations1 = new ArrayList<>();
-        equations1.add(new MathEquation("x + y = 10", "x, y", 7));
-        equations1.add(new MathEquation("2 * z = 16", "z", 8));
+        List<MathEquation> equations = new ArrayList<>();
+        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("2 * z = 16", "z", 8));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("2 * a = 8", "a", 4));
 
-        writeToJSONFile(equations1, "equations.json");
+        writeToJSONFile(equations, "equations.json");
 
 
-        List<MathEquation> equations2 = readFromJSONFile("equations.json");
-        if (equations2 != null)
+        List<MathEquation> equationsjson = readFromJSONFile("equations.json");
+        if (equationsjson != null)
         {
-            for (MathEquation equation : equations2)
+            for (MathEquation equation : equationsjson)
             {
                 System.out.println("Equation: " + equation.getEquation() + ", Variables: " +
                         equation.getVariables() + ", Result: " + equation.getResult());
@@ -33,29 +37,25 @@ public class Main {
 
         System.out.println();
 
-        List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
-        equations.add(new MathEquation("2 * a = 8", "a", 4));
 
         // Запись коллекции в XML файл
-        writeToXML(equations, "equations.xml");
+        writeToXMLFile(equations, "equations.xml");
+        myWriteToXMLFile(equations, "myequations.xml");
 
         // Чтение коллекции из XML файла
-        List<MathEquation> loadedEquations = readFromXML("equations.xml");
+        List<MathEquation> loadedEquations = myReadFromXMLFile("myequations.xml");
         for (MathEquation equation : loadedEquations)
         {
             System.out.println("Equation: " + equation.getEquation() + ", Variables: " + equation.getVariables() + ", Result: " + equation.getResult());
         }
 
 
-        // Добавление новых уравнений в коллекцию (пример)
-        //equations.add(new MathEquation("2x + 5 = 10", "x", 5));
-        //equations.add(new MathEquation("3y - 7 = 14", "y", 7));
         System.out.println();
         writeToTXTFile(equations, "equations.txt");
 
-        List<MathEquation> equations3 = readFromTXTFile("equations.txt");
-        for (MathEquation equation : equations3)
+
+        List<MathEquation> equationstxt = readFromTXTFile("equations.txt");
+        for (MathEquation equation : equationstxt)
         {
             System.out.println("Equation: " + equation.getEquation() + ", Variables: " + equation.getVariables() + ", Result: " + equation.getResult());
         }

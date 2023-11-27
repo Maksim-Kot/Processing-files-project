@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <listWrapper>
-    <equation>
+    <mathequation>
         <equation>x + y = 10</equation>
         <result>7</result>
         <variables>x, y</variables>
-    </equation>
-    <equation>
+    </mathequation>
+    <mathequation>
+        <equation>2 * z = 16</equation>
+        <result>8</result>
+        <variables>z</variables>
+    </mathequation>
+    <mathequation>
+        <equation>x + y = 10</equation>
+        <result>7</result>
+        <variables>x, y</variables>
+    </mathequation>
+    <mathequation>
         <equation>2 * a = 8</equation>
         <result>4</result>
         <variables>a</variables>
-    </equation>
+    </mathequation>
 </listWrapper>

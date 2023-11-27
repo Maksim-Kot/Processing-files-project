@@ -8,7 +8,7 @@ import java.util.List;
 public class XMLReadWrite
 {
 
-    public static List<MathEquation> readFromXML(String filePath)
+    public static List<MathEquation> readFromXMLFile(String filePath)
     {
         try
         {
@@ -25,7 +25,7 @@ public class XMLReadWrite
         }
     }
 
-    public static void writeToXML(List<MathEquation> equations, String filePath)
+    public static void writeToXMLFile(List<MathEquation> equations, String filePath)
     {
         try
         {
@@ -49,7 +49,7 @@ public class XMLReadWrite
     {
         private List<MathEquation> equations;
 
-        @XmlElement(name = "equation")
+        @XmlElement(name = "mathequation")
         public List<MathEquation> getMathEquations()
         {
             return equations;
