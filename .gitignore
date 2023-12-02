@@ -36,3 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+test.json
+test.xml
+test.txt

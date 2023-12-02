@@ -1,5 +1,7 @@
 package org.example;
 import javax.xml.bind.annotation.*;
+import java.util.Objects;
+
 public class MathEquation
 {
     private String equation;
@@ -49,5 +51,18 @@ public class MathEquation
     public void setResult(int result)
     {
         this.result = result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MathEquation that = (MathEquation) o;
+        return result == that.result && Objects.equals(equation, that.equation) && Objects.equals(variables, that.variables);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(equation, variables, result);
     }
 }
