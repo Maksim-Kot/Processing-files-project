@@ -22,7 +22,7 @@ public class MyJsonReadWrite {
                     String equation = line.substring(line.indexOf(':') + 3, line.length() - 1);
 
 
-                    equations.add(new MathEquation(equation, variables, Integer.parseInt(result)));
+                    equations.add(new MathEquation(equation, variables, Double.parseDouble(result)));
                 }
             }
         } catch (IOException e) {

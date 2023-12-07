@@ -15,7 +15,7 @@ public class TXTReadWrite {
                 if (parts.length == 3) {
                     String equation = parts[0];
                     String variables = parts[1];
-                    int result = Integer.parseInt(parts[2]);
+                    double result = Double.parseDouble(parts[2]);
                     equations.add(new MathEquation(equation, variables, result));
                 }
             }

@@ -6,14 +6,14 @@ public class MathEquation
 {
     private String equation;
     private String variables;
-    private int result;
+    private double result;
 
     public MathEquation()
     {
         // Обязательно должен быть пустой конструктор для JAXB
     }
 
-    public MathEquation(String equation, String variables, int result)
+    public MathEquation(String equation, String variables, double result)
     {
         this.equation = equation;
         this.variables = variables;
@@ -43,12 +43,12 @@ public class MathEquation
     }
 
     @XmlElement
-    public int getResult()
+    public double getResult()
     {
         return result;
     }
 
-    public void setResult(int result)
+    public void setResult(double result)
     {
         this.result = result;
     }

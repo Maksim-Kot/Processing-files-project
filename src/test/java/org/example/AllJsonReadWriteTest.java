@@ -16,7 +16,7 @@ class AllJsonReadWriteTest {
     @Test
     void readFromJSONFile1() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -31,7 +31,7 @@ class AllJsonReadWriteTest {
     @Test
     void readFromJSONFile2() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -46,7 +46,7 @@ class AllJsonReadWriteTest {
     @Test
     void writeToJSONFile1() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -61,7 +61,7 @@ class AllJsonReadWriteTest {
     @Test
     void writeToJSONFile2() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -76,7 +76,7 @@ class AllJsonReadWriteTest {
     @Test
     void myReadFromJSONFile1() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -91,7 +91,7 @@ class AllJsonReadWriteTest {
     @Test
     void myReadFromJSONFile2() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -106,7 +106,7 @@ class AllJsonReadWriteTest {
     @Test
     void myWriteToJSONFile1() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -121,7 +121,7 @@ class AllJsonReadWriteTest {
     @Test
     void myWriteToJSONFile2() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));

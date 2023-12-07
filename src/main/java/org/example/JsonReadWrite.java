@@ -33,7 +33,7 @@ public class JsonReadWrite
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String equation = jsonObject.getString("equation");
                 String variables = jsonObject.getString("variables");
-                int result = jsonObject.getInt("result");
+                double result = jsonObject.getDouble("result");
                 equations.add(new MathEquation(equation, variables, result));
             }
 

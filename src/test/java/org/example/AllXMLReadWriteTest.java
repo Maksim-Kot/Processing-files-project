@@ -16,7 +16,7 @@ class AllXMLReadWriteTest {
     @Test
     void readFromXMLFile1() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -31,7 +31,7 @@ class AllXMLReadWriteTest {
     @Test
     void readFromXMLFile2() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -46,7 +46,7 @@ class AllXMLReadWriteTest {
     @Test
     void writeToXMLFile1() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -61,7 +61,7 @@ class AllXMLReadWriteTest {
     @Test
     void writeToXMLFile2() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -76,7 +76,7 @@ class AllXMLReadWriteTest {
     @Test
     void myReadFromXMLFile1() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -91,7 +91,7 @@ class AllXMLReadWriteTest {
     @Test
     void myReadFromXMLFile2() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -106,7 +106,7 @@ class AllXMLReadWriteTest {
     @Test
     void myWriteToXMLFile1() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));
@@ -121,7 +121,7 @@ class AllXMLReadWriteTest {
     @Test
     void myWriteToXMLFile2() {
         List<MathEquation> equations = new ArrayList<>();
-        equations.add(new MathEquation("x + y = 10", "x, y", 7));
+        equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
         equations.add(new MathEquation("2 * z = 16", "z", 8));
         equations.add(new MathEquation("x + y = 10", "x, y", 7));
         equations.add(new MathEquation("2 * a = 8", "a", 4));

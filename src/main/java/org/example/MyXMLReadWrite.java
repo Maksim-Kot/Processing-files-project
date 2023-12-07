@@ -16,7 +16,7 @@ public class MyXMLReadWrite {
                     line = br.readLine();
                     String variables = line.substring(line.indexOf('>') + 1, line.lastIndexOf('<'));
 
-                    equations.add(new MathEquation(equation, variables, Integer.parseInt(result)));
+                    equations.add(new MathEquation(equation, variables, Double.parseDouble(result)));
                 }
             }
         } catch (IOException e) {
