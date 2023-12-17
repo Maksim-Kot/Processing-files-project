@@ -2,22 +2,22 @@
 <listWrapper>
 	<mathequation>
 		<equation>x + y = 10</equation>
-		<result>7</result>
+		<result>7.0</result>
 		<variables>x, y</variables>
 	</mathequation>
 	<mathequation>
 		<equation>2 * z = 16</equation>
-		<result>8</result>
+		<result>8.0</result>
 		<variables>z</variables>
 	</mathequation>
 	<mathequation>
 		<equation>x + y = 10</equation>
-		<result>7</result>
+		<result>7.0</result>
 		<variables>x, y</variables>
 	</mathequation>
 	<mathequation>
 		<equation>2 * a = 8</equation>
-		<result>4</result>
+		<result>4.0</result>
 		<variables>a</variables>
 	</mathequation>
 </listWrapper>

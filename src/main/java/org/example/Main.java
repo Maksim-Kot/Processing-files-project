@@ -3,6 +3,7 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.example.CalculationViaAPI.calculateViaAPI;
 import static org.example.JsonReadWrite.readFromJSONFile;
 import static org.example.JsonReadWrite.writeToJSONFile;
 import static org.example.MyJsonReadWrite.myReadFromJSONFile;
@@ -61,6 +62,8 @@ public class Main {
         {
             System.out.println("Equation: " + equation.getEquation() + ", Variables: " + equation.getVariables() + ", Result: " + equation.getResult());
         }
+
+        System.out.println("\n" + "((1+2)*(5-4)/2+(1-2))/2 = " + calculateViaAPI("((1+2)*(5-4)/2+(1-2))/2"));
 
     }
 }
