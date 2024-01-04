@@ -1,16 +1,14 @@
 package org.example;
 
+import EquationClass.MathEquation;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
-import static org.example.JsonReadWrite.readFromJSONFile;
-import static org.example.MyJsonReadWrite.myWriteToJSONFile;
-import static org.example.TXTReadWrite.readFromTXTFile;
-import static org.example.TXTReadWrite.writeToTXTFile;
+import static ReadAndWrite.TXTReadWrite.readFromTXTFile;
+import static ReadAndWrite.TXTReadWrite.writeToTXTFile;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TXTReadWriteTest {

@@ -1,4 +1,4 @@
-package org.example;
+package EquationClass;
 import javax.xml.bind.annotation.*;
 import java.util.Objects;
 

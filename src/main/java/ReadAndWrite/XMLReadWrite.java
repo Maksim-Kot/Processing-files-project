@@ -1,4 +1,6 @@
-package org.example;
+package ReadAndWrite;
+
+import EquationClass.MathEquation;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.*;

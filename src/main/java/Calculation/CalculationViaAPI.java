@@ -1,4 +1,4 @@
-package org.example;
+package Calculation;
 
 import com.fathzer.soft.javaluator.DoubleEvaluator;
 
@@ -10,7 +10,7 @@ public class CalculationViaAPI {
         DoubleEvaluator evaluator = new DoubleEvaluator();
         // Evaluate an expression
         Double result = evaluator.evaluate(equation);
-        // Ouput the result
+        // Output the result
         return result;
     }
 }

@@ -40,3 +40,7 @@ build/
 test.json
 test.xml
 test.txt
+*.txt
+*.json
+*.xml
+!pom.xml

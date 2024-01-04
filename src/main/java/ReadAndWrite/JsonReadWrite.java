@@ -1,5 +1,6 @@
-package org.example;
+package ReadAndWrite;
 
+import EquationClass.MathEquation;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

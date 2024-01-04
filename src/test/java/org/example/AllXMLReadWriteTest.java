@@ -1,14 +1,15 @@
 package org.example;
 
+import EquationClass.MathEquation;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.example.MyXMLReadWrite.myReadFromXMLFile;
-import static org.example.MyXMLReadWrite.myWriteToXMLFile;
-import static org.example.XMLReadWrite.readFromXMLFile;
-import static org.example.XMLReadWrite.writeToXMLFile;
+import static ReadAndWrite.MyXMLReadWrite.myReadFromXMLFile;
+import static ReadAndWrite.MyXMLReadWrite.myWriteToXMLFile;
+import static ReadAndWrite.XMLReadWrite.readFromXMLFile;
+import static ReadAndWrite.XMLReadWrite.writeToXMLFile;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AllXMLReadWriteTest {

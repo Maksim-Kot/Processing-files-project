@@ -1,4 +1,6 @@
-package org.example;
+package ReadAndWrite;
+
+import EquationClass.MathEquation;
 
 import java.io.*;
 import java.util.ArrayList;
