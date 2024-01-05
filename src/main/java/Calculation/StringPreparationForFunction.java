@@ -1,6 +1,6 @@
 package Calculation;
 
-public class StringPreparationForParsing
+public class StringPreparationForFunction
 {
     public static String preparation(String s)
     {

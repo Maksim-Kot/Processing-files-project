@@ -2,40 +2,40 @@ package Calculation;
 
 import org.junit.jupiter.api.Test;
 
-import static Calculation.CalculationViaParsing.calculateViaParsing;
+import static Calculation.CalculationViaFunction.calculateViaFunction;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CalculationViaParsingTest
+class CalculationViaFunctionTest
 {
 
     @Test
-    void calculateViaParsingTest1()
+    void calculateViaFunctionTest1()
     {
         String expression = "((1+2)*(5-4)/2+(1-2))/2";
-        assertEquals(0.25, calculateViaParsing(expression), 0.000001);
+        assertEquals(0.25, calculateViaFunction(expression), 0.000001);
     }
 
     @Test
-    void calculateViaParsingTest2()
+    void calculateViaFunctionTest2()
     {
         String expression = "   8  - 9+ 7.8*    (-4)";
-        assertEquals(-32.2, calculateViaParsing(expression), 0.000001);
+        assertEquals(-32.2, calculateViaFunction(expression), 0.000001);
     }
 
     @Test
-    void calculateViaParsingTestExtraParenthesis()
+    void calculateViaFunctionTestExtraParenthesis()
     {
         String expression = "(4 +5)*2/(3-5))";
         assertThrows(IllegalArgumentException.class,
-                () -> CalculationViaParsing.calculateViaParsing(expression));
+                () -> CalculationViaFunction.calculateViaFunction(expression));
     }
 
     @Test
-    void calculateViaParsingTestInvalidOperator()
+    void calculateViaFunctionTestInvalidOperator()
     {
         String expression = "(6 &   8) /5";
         assertThrows(IllegalArgumentException.class,
-                () -> CalculationViaParsing.calculateViaParsing(expression));
+                () -> CalculationViaFunction.calculateViaFunction(expression));
     }
 
     @Test
@@ -43,6 +43,6 @@ class CalculationViaParsingTest
     {
         String expression = "(6 +   8) /0";
         assertThrows(ArithmeticException.class,
-                () -> CalculationViaParsing.calculateViaParsing(expression));
+                () -> CalculationViaFunction.calculateViaFunction(expression));
     }
 }

@@ -2,10 +2,10 @@ package Calculation;
 
 import static Calculation.InfixToPrefixWithParentheses.infixToPrefix;
 import static Calculation.PolishNotation.evaluate;
-import static Calculation.StringPreparationForParsing.preparation;
+import static Calculation.StringPreparationForFunction.preparation;
 
-public class CalculationViaParsing {
-    public static Double calculateViaParsing(String s)
+public class CalculationViaFunction {
+    public static Double calculateViaFunction(String s)
     {
         String expression = preparation(s);
         expression = infixToPrefix(expression);

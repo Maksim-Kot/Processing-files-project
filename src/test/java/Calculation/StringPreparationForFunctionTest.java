@@ -2,10 +2,10 @@ package Calculation;
 
 import org.junit.jupiter.api.Test;
 
-import static Calculation.StringPreparationForParsing.*;
+import static Calculation.StringPreparationForFunction.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class StringPreparationForParsingTest
+class StringPreparationForFunctionTest
 {
 
     @Test
