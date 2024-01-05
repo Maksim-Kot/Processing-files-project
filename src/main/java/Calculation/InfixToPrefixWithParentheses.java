@@ -42,6 +42,9 @@ public class InfixToPrefixWithParentheses
                 {
                     throw new IllegalArgumentException("Invalid expression: extra opening parenthesis");
                 }
+            } else
+            {
+                throw new IllegalArgumentException("Invalid operator: " + token);
             }
         }
 

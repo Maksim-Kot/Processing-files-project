@@ -1,4 +1,4 @@
-package org.example;
+package ReadAndWrite;
 
 import EquationClass.MathEquation;
 import org.junit.jupiter.api.Test;
