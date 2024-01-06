@@ -15,7 +15,11 @@ public class ParserForEquation
 
     public static double parse(String str) throws ParseException
     {
-        // Парсинг скобок
+        if(!isValidExpression(str))
+        {
+            throw new IllegalArgumentException("Invalid expression: extra parenthesis");
+        }
+        // Parse parentheses
         Pattern patternSk = Pattern.compile(regexBr);
         Matcher matchSk = patternSk.matcher(str);
         if (matchSk.find())
@@ -27,7 +31,7 @@ public class ParserForEquation
             return parse(left + parse(inner) + right);
         }
 
-        // Парсинг действий
+        // Parsing actions
         Pattern patternMulOp = Pattern.compile("(" + regexNum + ")\\s?(" + regexMulOp + ")\\s?(" + regexNum + ")\\s?");
         Pattern patternAddOp = Pattern.compile("(" + regexNum + ")\\s?(" + regexAddOp + ")\\s?(" + regexNum + ")\\s?");
         Matcher matchMulOp = patternMulOp.matcher(str);
@@ -40,7 +44,7 @@ public class ParserForEquation
             return parse(left + parseAct(match) + right);
         }
 
-        // Парсинг числа
+        // Parse numbers
         try
         {
             DecimalFormatSymbols symbols = new DecimalFormatSymbols();
@@ -74,5 +78,13 @@ public class ParserForEquation
             default:
                 throw new ParseException("Invalid input string: '" + match.group() + "'", 0);
         }
+    }
+
+    public static boolean isValidExpression(String expression)
+    {
+        // Check for the presence of the same number of opening and closing parentheses
+        int openParentheses = expression.length() - expression.replace("(", "").length();
+        int closeParentheses = expression.length() - expression.replace(")", "").length();
+        return openParentheses == closeParentheses;
     }
 }
