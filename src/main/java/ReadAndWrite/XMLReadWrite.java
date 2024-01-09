@@ -5,7 +5,8 @@ import EquationClass.MathEquation;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.*;
 import java.io.File;
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 public class XMLReadWrite
 {
@@ -15,15 +16,21 @@ public class XMLReadWrite
         try
         {
             File file = new File(filePath);
+            if (!file.exists()) {
+                throw new FileNotFoundException("File not found: " + filePath);
+            }
             JAXBContext jaxbContext = JAXBContext.newInstance(MathEquation.class, ListWrapper.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             ListWrapper wrapper = (ListWrapper) unmarshaller.unmarshal(file);
             return wrapper.getMathEquations();
         }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e.getMessage());
+        }
         catch (JAXBException e)
         {
-            e.printStackTrace();
-            return new ArrayList<>();
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
 
@@ -42,7 +49,7 @@ public class XMLReadWrite
         }
         catch (JAXBException e)
         {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 

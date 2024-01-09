@@ -4,14 +4,19 @@ import EquationClass.MathEquation;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-public class MyXMLReadWrite {
-    public static List<MathEquation> myReadFromXMLFile(String filePath) {
+public class MyXMLReadWrite
+{
+    public static List<MathEquation> myReadFromXMLFile(String filePath)
+    {
         List<MathEquation> equations = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath)))
+        {
             String line;
-            while ((line = br.readLine()) != null) {
-                if (line.trim().startsWith("<equation>")) {
+            while ((line = br.readLine()) != null)
+            {
+                if (line.trim().startsWith("<equation>"))
+                {
                     String equation = line.substring(line.indexOf('>') + 1, line.lastIndexOf('<'));
                     line = br.readLine();
                     String result = line.substring(line.indexOf('>') + 1, line.lastIndexOf('<'));
@@ -21,19 +26,28 @@ public class MyXMLReadWrite {
                     equations.add(new MathEquation(equation, variables, Double.parseDouble(result)));
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            if(equations.isEmpty()) throw new IllegalArgumentException("No valid information in file");
+        } catch (IllegalArgumentException e)
+        {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e.getMessage());
         }
 
         return equations;
     }
 
-    public static void myWriteToXMLFile(List<MathEquation> equations, String filePath) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+    public static void myWriteToXMLFile(List<MathEquation> equations, String filePath)
+    {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath)))
+        {
             bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
             bw.write("<listWrapper>\n");
 
-            for (MathEquation equation : equations) {
+            for (MathEquation equation : equations)
+            {
                 bw.write("\t<mathequation>\n");
                 bw.write("\t\t<equation>" + equation.getEquation() + "</equation>\n");
                 bw.write("\t\t<result>" + equation.getResult() + "</result>\n");
@@ -42,8 +56,10 @@ public class MyXMLReadWrite {
             }
 
             bw.write("</listWrapper>\n");
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

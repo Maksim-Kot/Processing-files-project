@@ -1,8 +1,12 @@
 package ReadAndWrite;
 
+import Calculation.InfixToPrefixWithParentheses;
 import EquationClass.MathEquation;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +49,24 @@ class AllJsonReadWriteTest {
     }
 
     @Test
+    void readFromJSONFileNoFound() {
+        assertThrows(RuntimeException.class,
+                () -> JsonReadWrite.readFromJSONFile("test.json"));
+    }
+
+    @Test
+    void readFromJSONFileInvalidInformation() {
+        File fileToCreate = new File("test.json");
+        try {
+            fileToCreate.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        assertThrows(IllegalArgumentException.class,
+                () -> JsonReadWrite.readFromJSONFile("test.json"));
+    }
+
+    @Test
     void writeToJSONFile1() {
         List<MathEquation> equations = new ArrayList<>();
         equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
@@ -72,6 +94,13 @@ class AllJsonReadWriteTest {
         List<MathEquation> equationsget = myReadFromJSONFile("test.json");
 
         assertTrue(equationsget.equals(equations));
+    }
+
+    @Test
+    void writeToJSONFileInvalidPath() {
+        List<MathEquation> equations = new ArrayList<>();
+        assertThrows(RuntimeException.class,
+                () -> JsonReadWrite.writeToJSONFile(equations, "te*st.json"));
     }
 
     @Test
@@ -105,6 +134,24 @@ class AllJsonReadWriteTest {
     }
 
     @Test
+    void myReadFromJSONFileNoFound() {
+        assertThrows(RuntimeException.class,
+                () -> JsonReadWrite.readFromJSONFile("test.json"));
+    }
+
+    @Test
+    void myReadFromJSONFileInvalidInformation() {
+        File fileToCreate = new File("test.json");
+        try {
+            fileToCreate.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        assertThrows(IllegalArgumentException.class,
+                () -> JsonReadWrite.readFromJSONFile("test.json"));
+    }
+
+    @Test
     void myWriteToJSONFile1() {
         List<MathEquation> equations = new ArrayList<>();
         equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
@@ -132,5 +179,18 @@ class AllJsonReadWriteTest {
         List<MathEquation> equationsget = myReadFromJSONFile("test.json");
 
         assertTrue(equationsget.equals(equations));
+    }
+
+    @Test
+    void myWriteToJSONFileInvalidPath() {
+        List<MathEquation> equations = new ArrayList<>();
+        assertThrows(RuntimeException.class,
+                () -> JsonReadWrite.writeToJSONFile(equations, "te*st.json"));
+    }
+
+    @AfterEach
+    void cleanUp() {
+        File fileToDelete = new File("test.json");
+        fileToDelete.delete();
     }
 }

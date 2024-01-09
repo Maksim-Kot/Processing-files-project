@@ -5,10 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +37,14 @@ public class JsonReadWrite
 
             return equations;
         }
-        catch (IOException | JSONException e)
+        catch (IOException e)
         {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
-
-        return null;
+        catch (JSONException e)
+        {
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
 
     public static void writeToJSONFile(List<MathEquation> equations, String filePath)
@@ -64,11 +63,10 @@ public class JsonReadWrite
         try (FileWriter file = new FileWriter(filePath))
         {
             file.write(jsonArray.toString(4));
-            //System.out.println("Objects successfully written to JSON file!");
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

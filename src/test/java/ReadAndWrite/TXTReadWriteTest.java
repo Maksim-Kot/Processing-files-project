@@ -1,6 +1,7 @@
 package ReadAndWrite;
 
 import EquationClass.MathEquation;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -40,6 +41,24 @@ class TXTReadWriteTest {
     }
 
     @Test
+    void readFromTXTFileTestNoFound() {
+        assertThrows(RuntimeException.class,
+                () -> TXTReadWrite.readFromTXTFile("test.txt"));
+    }
+
+    @Test
+    void readFromTXTFileTestInvalidInformation() {
+        File fileToCreate = new File("test.txt");
+        try {
+            fileToCreate.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        assertThrows(IllegalArgumentException.class,
+                () -> TXTReadWrite.readFromTXTFile("test.txt"));
+    }
+
+    @Test
     void writeToTXTFileTest() {
         List<MathEquation> equations = new ArrayList<>();
         equations.add(new MathEquation("x + y = 10", "x, y", 7.9));
@@ -63,5 +82,18 @@ class TXTReadWriteTest {
         String needed = "x + y = 10; x, y; 7.9\n2 * z = 16; z; 8.0\nx + y = 10; x, y; 7.0\n2 * a = 8; a; 4.0\n";
 
         assertTrue(needed.equals(result));
+    }
+
+    @Test
+    void writeToTXTFileInvalidPath() {
+        List<MathEquation> equations = new ArrayList<>();
+        assertThrows(RuntimeException.class,
+                () -> TXTReadWrite.writeToTXTFile(equations, "te*st.txt"));
+    }
+
+    @AfterEach
+    void cleanUp() {
+        File fileToDelete = new File("test.txt");
+        fileToDelete.delete();
     }
 }
