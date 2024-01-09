@@ -54,6 +54,15 @@ public class MathEquation
     }
 
     @Override
+    public String toString() {
+        return "MathEquation{" +
+                "equation='" + equation + '\'' +
+                ", variables='" + variables + '\'' +
+                ", result=" + result +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
