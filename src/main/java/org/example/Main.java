@@ -1,22 +1,33 @@
 package org.example;
 
+import AdditionalClasses.FileFilterByExtension;
 import AdditionalClasses.FileModification;
 import AdditionalClasses.FileTypeAndMethod;
 import AdditionalClasses.MethodToCalculate;
+import GeneralProcessingClasses.GeneralArchiver;
 import EquationClass.MathEquation;
-import ReadAndWrite.*;
+import GeneralProcessingClasses.GeneralCalculation;
+import GeneralProcessingClasses.GeneralReadAndWrite;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 
 public class Main {
     public static void main(String[] args) {
+
         FileModification fileModification = null;
         FileTypeAndMethod fileTypeAndMethod = null;
         MethodToCalculate methodToCalculate = null;
         List<MathEquation> eq = null;
-        String fileName = "";
+        List<MathEquation> calculatedEq = null;
+        String archiverName = null;
+        String outputFolder = "output";
+        String fileName = null;
+        String folderPath = "";
+        String[] extensions = null;
+        List<String> matchingFiles = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("This program will help you:\n" +
@@ -101,6 +112,103 @@ public class Main {
 
         System.out.println("\n"); // For space
 
+        folderPath = "files";
+        extensions = new String[]{".rar", ".zip"};
+        matchingFiles = FileFilterByExtension.getFilesByExtensions(folderPath, extensions);
+
+        if (!matchingFiles.isEmpty())
+        {
+            System.out.println("Select the name of the file that needs to be modified (enter the number):");
+                    for (int i = 0; i < matchingFiles.size(); ++i)
+                    {
+                        System.out.println(i+1 + ") " + matchingFiles.get(i));
+                    }
+            System.out.print(">");
+        } else
+        {
+            System.out.println("There are no files with the specified extensions in the specified folder");
+        }
+
+        while (null == archiverName) {
+            String input = scanner.nextLine();
+            try {
+                int chose = Integer.parseInt(input);
+                if(chose > 0 && chose <= matchingFiles.size()) {
+                    archiverName = matchingFiles.get(chose-1);
+                    System.out.println("You choosed: " + archiverName);
+                }
+                else throw new IllegalStateException("Unexpected value: " + chose);
+            } catch (IllegalStateException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Try again. Enter the number:");
+                System.out.print(">");
+            } catch (NumberFormatException e) {
+                System.out.println("This is not a number.\n" +
+                        "Try again. Enter the number:");
+                System.out.print(">");
+            }
+        }
+
+        matchingFiles.clear(); // Refresh list
+
+        System.out.println(); // For space
+
+
+        // Dearchiving file
+        try{
+            GeneralArchiver.dearchive(archiverName, outputFolder, fileModification);
+            System.out.println("Files were dearchived successfully");
+        }catch (RuntimeException e){
+            System.out.println("Problems with file dearchiving:");
+            System.out.println(e.getMessage());
+            return;
+        }
+
+
+        System.out.println("\n"); // For space
+
+
+        folderPath = "files\\" + outputFolder;
+        extensions = new String[]{".txt", ".xml", ".json"};
+        matchingFiles = FileFilterByExtension.getFilesByExtensions(folderPath, extensions);
+
+        if (!matchingFiles.isEmpty())
+        {
+            System.out.println("Select the file name you want process (enter the number):");
+            for (int i = 0; i < matchingFiles.size(); ++i)
+            {
+                System.out.println(i+1 + ") " + matchingFiles.get(i));
+            }
+            System.out.print(">");
+        } else
+        {
+            System.out.println("There are no files with the specified extensions in the specified folder");
+        }
+
+        while (null == fileName) {
+            String input = scanner.nextLine();
+            try {
+                int chose = Integer.parseInt(input);
+                if(chose > 0 && chose <= matchingFiles.size()) {
+                    fileName = "files\\output\\" + matchingFiles.get(chose-1);
+                    System.out.println("You choosed: " + fileName);
+                }
+                else throw new IllegalStateException("Unexpected value: " + chose);
+            } catch (IllegalStateException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Try again. Enter the number:");
+                System.out.print(">");
+            } catch (NumberFormatException e) {
+                System.out.println("This is not a number.\n" +
+                        "Try again. Enter the number:");
+                System.out.print(">");
+            }
+        }
+
+
+        System.out.println("\n"); // For space
+
+
         System.out.println("Select the type and method of reading the file (enter the number):\n" +
                 "1) Read JSON file using the API\n" +
                 "2) Read JSON file using the function\n" +
@@ -153,7 +261,26 @@ public class Main {
             }
         }
 
+
         System.out.println("\n"); // For space
+
+        // Reading file
+        try {
+            eq = GeneralReadAndWrite.readFile(fileName, fileTypeAndMethod);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+        if(null == eq) System.out.println("Problems with file");
+        else {
+            System.out.println("The file was read successfully");
+            System.out.println(eq);
+        }
+
+
+        System.out.println("\n"); // For space
+
 
         System.out.println("Select a method for counting expressions (enter the number):\n" +
                 "1) Calculate via API\n" +
@@ -191,42 +318,23 @@ public class Main {
             }
         }
 
+
         System.out.println("\n"); // For space
 
-        System.out.println("Enter the full name of the file you want to read and process:");
-        System.out.print(">");
-        fileName = scanner.nextLine();
-
-        try {
-            switch (fileTypeAndMethod) {
-                case JSON_API:
-                    eq = JsonReadWrite.readFromJSONFile(fileName);
-                    break;
-                case JSON_FUNC:
-                    eq = MyJsonReadWrite.myReadFromJSONFile(fileName);
-                    break;
-                case XML_API:
-                    eq = XMLReadWrite.readFromXMLFile(fileName);
-                    break;
-                case XML_FUNC:
-                    eq = MyXMLReadWrite.myReadFromXMLFile(fileName);
-                    break;
-                case TXT:
-                    eq = TXTReadWrite.readFromTXTFile(fileName);
-                    break;
-                case AUTO:
-                    eq = null;
-                    break;
+        GeneralCalculation generalCalculation = new GeneralCalculation();
+        calculatedEq = generalCalculation.calculate(eq, methodToCalculate);
+        if(generalCalculation.isHaveMistakes()){
+            for(String message: generalCalculation.getMistakes()){
+                System.out.println(message);
             }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+        } else {
+            System.out.println("The file was processed successfully");
         }
-        if(null == eq) System.out.println("Problems with file");
-        else {
-            System.out.println("Good!");
-            System.out.println(eq);
-        }
+
+
+        System.out.println("\n"); // For space
+
+
+        System.out.println(calculatedEq);
     }
 }
