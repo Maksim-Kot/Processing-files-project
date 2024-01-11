@@ -2,12 +2,12 @@ package AdditionalClasses;
 
 public enum FileTypeAndMethod
 {
-    JSON_API ("Read JSON file using the API"),
-    JSON_FUNC ("Read JSON file using the function"),
-    XML_API ("Read XML file using the API"),
-    XML_FUNC ("Read XML file using the function"),
-    TXT ("Read TXT file"),
-    AUTO ("Read file with auto-type detection");
+    JSON_API ("JSON file using the API"),
+    JSON_FUNC ("JSON file using the function"),
+    XML_API ("XML file using the API"),
+    XML_FUNC ("XML file using the function"),
+    TXT ("TXT file"),
+    AUTO ("file with auto-type detection");
 
     private String str;
 

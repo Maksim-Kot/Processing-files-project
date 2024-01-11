@@ -40,4 +40,31 @@ public class GeneralReadAndWrite {
 
         return eq;
     }
+
+    public static void writeFile(List<MathEquation> eq, String fileName, FileTypeAndMethod fileTypeAndMethod) {
+        try {
+            switch (fileTypeAndMethod) {
+                case JSON_API:
+                    JsonReadWrite.writeToJSONFile(eq, fileName);
+                    break;
+                case JSON_FUNC:
+                    MyJsonReadWrite.myWriteToJSONFile(eq, fileName);
+                    break;
+                case XML_API:
+                    XMLReadWrite.writeToXMLFile(eq, fileName);
+                    break;
+                case XML_FUNC:
+                    MyXMLReadWrite.myWriteToXMLFile(eq, fileName);
+                    break;
+                case TXT:
+                    TXTReadWrite.writeToTXTFile(eq, fileName);
+                    break;
+                case AUTO:
+                    eq = null;
+                    break;
+            }
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }
