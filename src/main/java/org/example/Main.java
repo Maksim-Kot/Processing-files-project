@@ -1,14 +1,12 @@
 package org.example;
 
-import AdditionalClasses.FileFilterByExtension;
-import AdditionalClasses.FileModification;
-import AdditionalClasses.FileTypeAndMethod;
-import AdditionalClasses.MethodToCalculate;
+import AdditionalClasses.*;
 import GeneralProcessingClasses.GeneralArchiver;
 import EquationClass.MathEquation;
 import GeneralProcessingClasses.GeneralCalculation;
 import GeneralProcessingClasses.GeneralReadAndWrite;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,14 +18,20 @@ public class Main {
         FileModification fileModification = null;
         FileTypeAndMethod fileTypeAndMethod = null;
         MethodToCalculate methodToCalculate = null;
+
         List<MathEquation> eq = null;
         List<MathEquation> calculatedEq = null;
+
         String archiverName = null;
-        String outputFolder = "output";
+        String outputFolderForArchiver = "output";
         String fileName = null;
+
         String folderPath = "";
         String[] extensions = null;
         List<String> matchingFiles = new ArrayList<>();
+
+        String nameOfFolderToSave = "";
+        String nameOfFileToSave = "";
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("This program will help you:\n" +
@@ -151,12 +155,26 @@ public class Main {
 
         matchingFiles.clear(); // Refresh list
 
-        System.out.println(); // For space
 
+        System.out.println("\n"); // For space
+
+        System.out.println("Enter the name of the directory where you would like to save files from archive:");
+        System.out.print(">");
+        outputFolderForArchiver = scanner.nextLine();
+        while (!FolderCreator.createFolder("files\\" + outputFolderForArchiver)){
+            System.out.println("The directory has not been created. Try again");
+            System.out.println("Enter the name of the directory where you would like to save the file:");
+            System.out.print(">");
+            outputFolderForArchiver = scanner.nextLine();
+        }
+        System.out.println("The directory was successfully created");
+
+
+        System.out.println();
 
         // Dearchiving file
         try{
-            GeneralArchiver.dearchive(archiverName, outputFolder, fileModification);
+            GeneralArchiver.dearchive(archiverName, outputFolderForArchiver, fileModification);
             System.out.println("Files were dearchived successfully");
         }catch (RuntimeException e){
             System.out.println("Problems with file dearchiving:");
@@ -168,7 +186,7 @@ public class Main {
         System.out.println("\n"); // For space
 
 
-        folderPath = "files\\" + outputFolder;
+        folderPath = "files\\" + outputFolderForArchiver;
         extensions = new String[]{".txt", ".xml", ".json"};
         matchingFiles = FileFilterByExtension.getFilesByExtensions(folderPath, extensions);
 
@@ -191,7 +209,7 @@ public class Main {
                 int chose = Integer.parseInt(input);
                 if(chose > 0 && chose <= matchingFiles.size()) {
                     fileName = "files\\output\\" + matchingFiles.get(chose-1);
-                    System.out.println("You choosed: " + fileName);
+                    System.out.println("You choosed: " + matchingFiles.get(chose-1));
                 }
                 else throw new IllegalStateException("Unexpected value: " + chose);
             } catch (IllegalStateException e) {
@@ -225,27 +243,27 @@ public class Main {
                 switch (Integer.parseInt(input)) {
                     case 1:
                         fileTypeAndMethod = FileTypeAndMethod.JSON_API;
-                        System.out.println("You choosed: " + fileTypeAndMethod.getChoice());
+                        System.out.println("You choosed: Read " + fileTypeAndMethod.getChoice());
                         break;
                     case 2:
                         fileTypeAndMethod = FileTypeAndMethod.JSON_FUNC;
-                        System.out.println("You choosed: " + fileTypeAndMethod.getChoice());
+                        System.out.println("You choosed: Read " + fileTypeAndMethod.getChoice());
                         break;
                     case 3:
                         fileTypeAndMethod = FileTypeAndMethod.XML_API;
-                        System.out.println("You choosed: " + fileTypeAndMethod.getChoice());
+                        System.out.println("You choosed: Read " + fileTypeAndMethod.getChoice());
                         break;
                     case 4:
                         fileTypeAndMethod = FileTypeAndMethod.XML_FUNC;
-                        System.out.println("You choosed: " + fileTypeAndMethod.getChoice());
+                        System.out.println("You choosed: Read " + fileTypeAndMethod.getChoice());
                         break;
                     case 5:
                         fileTypeAndMethod = FileTypeAndMethod.TXT;
-                        System.out.println("You choosed: " + fileTypeAndMethod.getChoice());
+                        System.out.println("You choosed: Read " + fileTypeAndMethod.getChoice());
                         break;
                     case 6:
                         fileTypeAndMethod = FileTypeAndMethod.AUTO;
-                        System.out.println("You choosed: " + fileTypeAndMethod.getChoice());
+                        System.out.println("You choosed: Read " + fileTypeAndMethod.getChoice());
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + Integer.parseInt(input));
@@ -331,8 +349,112 @@ public class Main {
             System.out.println("The file was processed successfully");
         }
 
+        // Refresh for future file recording
+        fileTypeAndMethod = null;
+        fileModification = null;
+
 
         System.out.println("\n"); // For space
+
+
+        System.out.println("Enter the name of the directory where you would like to save the file:");
+        System.out.print(">");
+        nameOfFolderToSave = scanner.nextLine();
+        nameOfFolderToSave = "files\\" + nameOfFolderToSave;
+        while (!FolderCreator.createFolder(nameOfFolderToSave)){
+            System.out.println("The directory has not been created. Try again");
+            System.out.println("Enter the name of the directory where you would like to save the file:");
+            System.out.print(">");
+            nameOfFolderToSave = scanner.nextLine();
+            nameOfFolderToSave = "files\\" + nameOfFolderToSave;
+        }
+        System.out.println("The directory was successfully created");
+
+
+        System.out.println("\n"); // For space
+
+
+        System.out.println("Select the type and method of writing the file (enter the number):\n" +
+                "1) Write JSON file using the API\n" +
+                "2) Write JSON file using the function\n" +
+                "3) Write XML file using the API\n" +
+                "4) Write XML file using the function\n" +
+                "5) Write TXT file");
+        System.out.print(">");
+
+
+        while (null == fileTypeAndMethod) {
+            String input = scanner.nextLine();
+            try {
+                switch (Integer.parseInt(input)) {
+                    case 1:
+                        fileTypeAndMethod = FileTypeAndMethod.JSON_API;
+                        System.out.println("You choosed: Write " + fileTypeAndMethod.getChoice());
+                        break;
+                    case 2:
+                        fileTypeAndMethod = FileTypeAndMethod.JSON_FUNC;
+                        System.out.println("You choosed: Write " + fileTypeAndMethod.getChoice());
+                        break;
+                    case 3:
+                        fileTypeAndMethod = FileTypeAndMethod.XML_API;
+                        System.out.println("You choosed: Write " + fileTypeAndMethod.getChoice());
+                        break;
+                    case 4:
+                        fileTypeAndMethod = FileTypeAndMethod.XML_FUNC;
+                        System.out.println("You choosed: Write " + fileTypeAndMethod.getChoice());
+                        break;
+                    case 5:
+                        fileTypeAndMethod = FileTypeAndMethod.TXT;
+                        System.out.println("You choosed: Write " + fileTypeAndMethod.getChoice());
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + Integer.parseInt(input));
+                }
+            } catch (IllegalStateException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Try again. Enter the number:");
+                System.out.print(">");
+            } catch (NumberFormatException e) {
+                System.out.println("This is not a number.\n" +
+                        "Try again. Enter the number:");
+                System.out.print(">");
+            }
+        }
+
+
+        System.out.println("\n"); // For space
+
+
+        System.out.println("Enter the name of the file:");
+        System.out.print(">");
+        nameOfFileToSave = scanner.nextLine();
+        //nameOfFileToSave = "files\\" + nameOfFolderToSave;
+        while (true){
+            try{
+                Paths.get(nameOfFileToSave);
+                break;
+            } catch (RuntimeException e){
+                System.out.println("The file has not been created");
+                System.out.println(e.getMessage());
+                System.out.println("Try again");
+            }
+            System.out.println("Enter the name of the file:");
+            System.out.print(">");
+            nameOfFileToSave = scanner.nextLine();
+        }
+
+        nameOfFileToSave = nameOfFolderToSave + "\\" + nameOfFileToSave;
+        System.out.println(nameOfFileToSave);
+
+        System.out.println("\n"); // For space
+
+
+        // Writing file
+        try {
+            GeneralReadAndWrite.writeFile(calculatedEq, nameOfFileToSave, fileTypeAndMethod);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
 
 
         System.out.println(calculatedEq);
