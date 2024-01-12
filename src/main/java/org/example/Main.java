@@ -32,6 +32,7 @@ public class Main {
 
         String nameOfFolderToSave = "";
         String nameOfFileToSave = "";
+        String nameOfArchiveToSave = "";
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("This program will help you:\n" +
@@ -70,35 +71,35 @@ public class Main {
                 switch (Integer.parseInt(input)) {
                     case 1:
                         fileModification = FileModification.ARCHIVED_ZIP;
-                        System.out.println("You choosed: " + fileModification.getChoice());
+                        System.out.println("You choosed: The file has been " + fileModification.getChoice());
                         break;
                     case 2:
                         fileModification = FileModification.ARCHIVED_RAR;
-                        System.out.println("You choosed: " + fileModification.getChoice());
+                        System.out.println("You choosed: The file has been " + fileModification.getChoice());
                         break;
                     case 3:
                         fileModification = FileModification.ENCRYPTED;
-                        System.out.println("You choosed: " + fileModification.getChoice());
+                        System.out.println("You choosed: The file has been " + fileModification.getChoice());
                         break;
                     case 4:
                         fileModification = FileModification.ENCRYPTED_THEN_ARCHIVED_ZIP;
-                        System.out.println("You choosed: " + fileModification.getChoice());
+                        System.out.println("You choosed: The file was " + fileModification.getChoice());
                         break;
                     case 5:
                         fileModification = FileModification.ENCRYPTED_THEN_ARCHIVED_RAR;
-                        System.out.println("You choosed: " + fileModification.getChoice());
+                        System.out.println("You choosed: The file was " + fileModification.getChoice());
                         break;
                     case 6:
                         fileModification = FileModification.ARCHIVED_ZIP_THEN_ENCRYPTED;
-                        System.out.println("You choosed: " + fileModification.getChoice());
+                        System.out.println("You choosed: The file was " + fileModification.getChoice());
                         break;
                     case 7:
                         fileModification = FileModification.ARCHIVED_RAR_THEN_ENCRYPTED;
-                        System.out.println("You choosed: " + fileModification.getChoice());
+                        System.out.println("You choosed: The file was " + fileModification.getChoice());
                         break;
                     case 8:
                         fileModification = FileModification.NO_MODIFICATION;
-                        System.out.println("You choosed: " + fileModification.getChoice());
+                        System.out.println("You choosed: The file has not been " + fileModification.getChoice());
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + Integer.parseInt(input));
@@ -434,7 +435,7 @@ public class Main {
                 Paths.get(nameOfFileToSave);
                 break;
             } catch (RuntimeException e){
-                System.out.println("The file has not been created");
+                System.out.println("Invalid name");
                 System.out.println(e.getMessage());
                 System.out.println("Try again");
             }
@@ -444,7 +445,7 @@ public class Main {
         }
 
         nameOfFileToSave = nameOfFolderToSave + "\\" + nameOfFileToSave;
-        System.out.println(nameOfFileToSave);
+
 
         System.out.println("\n"); // For space
 
@@ -456,7 +457,81 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        System.out.println("\n");
 
-        System.out.println(calculatedEq);
+
+        System.out.println("Select modifications to be made to the file(s) (enter the number):\n" +
+                "1) The file need to be archived (ZIP)\n" +
+                "2) The file need to be archived (RAR)\n" +
+                "3) The file need to be encrypted\n" +
+                "4) The file need to be encrypted and then archived (ZIP)\n" +
+                "5) The file need to be encrypted and then archived (RAR)\n" +
+                "6) The file need to be archived (ZIP) and then encrypted\n" +
+                "7) The file need to be archived (RAR) and then encrypted\n" +
+                "8) No modified");
+        System.out.print(">");
+
+        while (null == fileModification) {
+            String input = scanner.nextLine();
+            try {
+                switch (Integer.parseInt(input)) {
+                    case 1:
+                        fileModification = FileModification.ARCHIVED_ZIP;
+                        System.out.println("You choosed: The file need to be " + fileModification.getChoice());
+                        break;
+                    case 2:
+                        fileModification = FileModification.ARCHIVED_RAR;
+                        System.out.println("You choosed: The file need to be " + fileModification.getChoice());
+                        break;
+                    case 3:
+                        fileModification = FileModification.ENCRYPTED;
+                        System.out.println("You choosed: The file need to be " + fileModification.getChoice());
+                        break;
+                    case 4:
+                        fileModification = FileModification.ENCRYPTED_THEN_ARCHIVED_ZIP;
+                        System.out.println("You choosed: The file need to be " + fileModification.getChoice());
+                        break;
+                    case 5:
+                        fileModification = FileModification.ENCRYPTED_THEN_ARCHIVED_RAR;
+                        System.out.println("You choosed: The file need to be " + fileModification.getChoice());
+                        break;
+                    case 6:
+                        fileModification = FileModification.ARCHIVED_ZIP_THEN_ENCRYPTED;
+                        System.out.println("You choosed: The file need to be " + fileModification.getChoice());
+                        break;
+                    case 7:
+                        fileModification = FileModification.ARCHIVED_RAR_THEN_ENCRYPTED;
+                        System.out.println("You choosed: The file need to be " + fileModification.getChoice());
+                        break;
+                    case 8:
+                        fileModification = FileModification.NO_MODIFICATION;
+                        System.out.println("You choosed: No " + fileModification.getChoice());
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + Integer.parseInt(input));
+                }
+            } catch (IllegalStateException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Try again. Enter the number:");
+                System.out.print(">");
+            } catch (NumberFormatException e) {
+                System.out.println("This is not a number.\n" +
+                        "Try again. Enter the number:");
+                System.out.print(">");
+            }
+
+
+            // Archiving file
+            if(fileModification != FileModification.NO_MODIFICATION || fileModification != FileModification.ENCRYPTED){
+                try{
+                    GeneralArchiver.archive(nameOfFolderToSave, fileModification);
+                    System.out.println("Files were archived successfully");
+                }catch (RuntimeException e){
+                    System.out.println("Problems with file archiving:");
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+
     }
 }
