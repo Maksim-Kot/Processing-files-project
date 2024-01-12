@@ -3,7 +3,6 @@ package GeneralProcessingClasses;
 import AdditionalClasses.FileModification;
 import Archivers.WinRARFileManager;
 import Archivers.ZipFileManager;
-import ReadAndWrite.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +20,21 @@ public class GeneralArchiver {
                     break;
                 case ARCHIVED_RAR:
                     WinRARFileManager.extractRAR("files\\" + nameOfArchive, "files\\" + directoryName);
+                    break;
+            }
+        } catch (IllegalArgumentException | IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public static void archive (String nameOfFolder, FileModification fileModification) {
+        try{
+            switch (fileModification) {
+                case ARCHIVED_ZIP:
+                    ZipFileManager.zipFiles(nameOfFolder);
+                    break;
+                case ARCHIVED_RAR:
+                    WinRARFileManager.createRAR(nameOfFolder, "D:\\Other project\\Java\\end-to-end_project\\"+nameOfFolder+".rar");
                     break;
             }
         } catch (IllegalArgumentException | IOException e) {
