@@ -11,12 +11,12 @@ public class FolderCreator {
                 //System.out.println("Folder successfully created.");
                 return true;
             } else {
-                System.out.println("Failed to create the folder.");
+                System.out.println("Failed to create the folder");
                 return false;
             }
         } else {
-            System.out.println("The folder already exists.");
-            return false;
+            System.out.println("Attention: The folder already exists.");
+            return true;
         }
     }
 }
