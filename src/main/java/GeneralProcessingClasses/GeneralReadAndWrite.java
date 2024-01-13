@@ -4,6 +4,10 @@ import AdditionalClasses.FileTypeAndMethod;
 import EquationClass.MathEquation;
 import ReadAndWrite.*;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +33,25 @@ public class GeneralReadAndWrite {
                     eq = TXTReadWrite.readFromTXTFile(fileName);
                     break;
                 case AUTO:
-                    eq = null;
+                    try (BufferedReader br = new BufferedReader(new FileReader(fileName)))
+                    {
+                        String line;
+                        line = br.readLine();
+                        if('[' == line.charAt(0)){
+                            eq = JsonReadWrite.readFromJSONFile(fileName);
+                        } else if (line.startsWith("<?xml version")){
+                            eq = XMLReadWrite.readFromXMLFile(fileName);
+                        } else {
+                            String[] parts = line.split("; ");
+                            if (parts.length == 3){
+                                eq = TXTReadWrite.readFromTXTFile(fileName);
+                            }
+                        }
+                    } catch (IOException e)
+                    {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    if(eq.isEmpty()) throw new IllegalArgumentException("File auto-detection error");
                     break;
             }
         } catch (IllegalArgumentException e) {
