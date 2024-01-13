@@ -1,25 +1,23 @@
-package GeneralProcessingClasses;
+package Archivers;
 
 import AdditionalClasses.FileModification;
-import Archivers.WinRARFileManager;
-import Archivers.ZipFileManager;
 
 import java.io.File;
 import java.io.IOException;
 
-public class GeneralArchiver {
+public class Archiver {
     public static void dearchive (String nameOfArchive, String directoryName, FileModification fileModification) {
         try{
             switch (fileModification) {
-                case ARCHIVED_ZIP:
-                    ZipFileManager.unzipFiles("files\\" + nameOfArchive, "files\\" + directoryName);
-                    if(isFolderEmpty("files\\" + directoryName)){
-                        deleteFolder("files\\" + directoryName);
+                case ARCHIVED_ZIP, ENCRYPTED_THEN_ARCHIVED_ZIP, ARCHIVED_ZIP_THEN_ENCRYPTED:
+                    ZipFileManager.unzipFiles(nameOfArchive, directoryName);
+                    if(isFolderEmpty(directoryName)){
+                        deleteFolder(directoryName);
                         throw new IllegalArgumentException("This is not a .zip archive");
                     }
                     break;
-                case ARCHIVED_RAR:
-                    WinRARFileManager.extractRAR("files\\" + nameOfArchive, "files\\" + directoryName);
+                case ARCHIVED_RAR, ENCRYPTED_THEN_ARCHIVED_RAR, ARCHIVED_RAR_THEN_ENCRYPTED:
+                    WinRARFileManager.extractRAR(nameOfArchive, directoryName);
                     break;
             }
         } catch (IllegalArgumentException | IOException e) {
