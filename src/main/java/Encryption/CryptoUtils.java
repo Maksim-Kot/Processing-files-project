@@ -28,29 +28,27 @@ public class CryptoUtils {
         doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
     }
 
-    private static void doCrypto(int cipherMode, String key, File inputFile,
-                                 File outputFile) throws CryptoException {
+    private static void doCrypto(int cipherMode, String key, File inputFile, File outputFile) throws CryptoException {
         try {
             Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
             cipher.init(cipherMode, secretKey);
 
-            FileInputStream inputStream = new FileInputStream(inputFile);
-            byte[] inputBytes = new byte[(int) inputFile.length()];
-            inputStream.read(inputBytes);
+            try (FileInputStream inputStream = new FileInputStream(inputFile);
+                 FileOutputStream outputStream = new FileOutputStream(outputFile)) {
 
-            byte[] outputBytes = cipher.doFinal(inputBytes);
+                byte[] inputBytes = new byte[(int) inputFile.length()];
+                inputStream.read(inputBytes);
 
-            FileOutputStream outputStream = new FileOutputStream(outputFile);
-            outputStream.write(outputBytes);
+                byte[] outputBytes = cipher.doFinal(inputBytes);
+                outputStream.write(outputBytes);
 
-            inputStream.close();
-            outputStream.close();
-
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException
-                 | InvalidKeyException | BadPaddingException
-                 | IllegalBlockSizeException | IOException ex) {
-            throw new CryptoException("Error encrypting/decrypting file", ex);
+            } catch (IOException | BadPaddingException | IllegalBlockSizeException ex) {
+                throw new CryptoException("Error encrypting/decrypting file", ex);
+            }
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException ex) {
+            throw new CryptoException("Error initializing cipher", ex);
         }
     }
+
 }

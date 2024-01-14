@@ -11,7 +11,7 @@ public class Encrypter {
         try {
             CryptoUtils.decrypt(key, encFile, decFile);
         } catch (CryptoException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             throw new RuntimeException(ex.getMessage());
         }
 
@@ -23,7 +23,7 @@ public class Encrypter {
         try {
             CryptoUtils.encrypt(key, inFile, encFile);
         } catch (CryptoException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             throw new RuntimeException(ex.getMessage());
         }
     }
