@@ -36,7 +36,7 @@ public class GeneralModifier {
                     break;
                 case ENCRYPTED:
                     String newName = nameOfArchive.replaceAll("\\.enc$", "");
-                    newName = newName.replace("files\\", "");
+                    newName = newName.substring(newName.indexOf('\\') + 1);
                     newName = directoryName + "\\" + newName;
                     Encrypter.decrypt(nameOfArchive, newName, key);
                 case NO_MODIFICATION:
