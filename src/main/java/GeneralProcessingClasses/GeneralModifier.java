@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import static Archivers.Archiver.archive;
 import static Archivers.Archiver.dearchive;
 
 public class GeneralModifier {
@@ -49,14 +50,36 @@ public class GeneralModifier {
     public static void modifie(String nameOfFolder, String key, FileModification fileModification) {
         try{
             switch (fileModification) {
-                case ARCHIVED_ZIP:
-                    ZipFileManager.zipFiles(nameOfFolder);
+                case ARCHIVED_ZIP, ARCHIVED_RAR:
+                    archive(nameOfFolder, fileModification);
                     break;
-                case ARCHIVED_RAR:
-                    WinRARFileManager.createRAR(nameOfFolder, "D:\\Other project\\Java\\end-to-end_project\\"+nameOfFolder+".rar");
+                case ENCRYPTED_THEN_ARCHIVED_RAR, ENCRYPTED_THEN_ARCHIVED_ZIP:
+                    List<String> files= FileFilterByExtension.getFilesByExtensions(nameOfFolder, ".txt", ".xml", ".json");
+                    for (String file: files){
+                        file = nameOfFolder + "\\" + file;
+                        String newFile = file + ".enc";
+                        Encrypter.encrypt(file, newFile, key);
+                    }
+                    archive(nameOfFolder, fileModification);
+                    break;
+                case ARCHIVED_RAR_THEN_ENCRYPTED, ARCHIVED_ZIP_THEN_ENCRYPTED:
+                    archive(nameOfFolder, fileModification);
+                    if(FileModification.ARCHIVED_RAR_THEN_ENCRYPTED == fileModification){
+                        Encrypter.encrypt(nameOfFolder + ".rar", nameOfFolder + ".rar.enc", key);
+                        File file = new File(nameOfFolder + ".rar");
+                        file.delete();
+                    } else {
+                        Encrypter.encrypt(nameOfFolder + ".zip", nameOfFolder + ".zip.enc", key);
+                        File file = new File(nameOfFolder + ".zip");
+                        file.delete();
+                    }
+                    break;
+                case ENCRYPTED:
+                    Encrypter.encrypt(nameOfFolder, nameOfFolder + ".enc", key);
+                case NO_MODIFICATION:
                     break;
             }
-        } catch (IllegalArgumentException | IOException e) {
+        } catch (RuntimeException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
