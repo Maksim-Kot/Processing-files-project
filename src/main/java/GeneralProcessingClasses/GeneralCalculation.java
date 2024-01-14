@@ -33,7 +33,7 @@ public class GeneralCalculation {
                     } catch (IllegalArgumentException e){
                         addMistake(i+1, e.getMessage());
                         //variables = "Error: " + variables;
-                        mathEquation = new MathEquation(equation, variables, 0);
+                        mathEquation = new MathEquation(eq.get(i).getEquation(), variables, 0);
                         res.add(mathEquation);
                         continue;
                     }
@@ -42,11 +42,11 @@ public class GeneralCalculation {
                     } catch (Exception e){
                         addMistake(i+1, e.getMessage());
                         //equation = "Error: " + equation;
-                        mathEquation = new MathEquation(equation, variables, 0);
+                        mathEquation = new MathEquation(eq.get(i).getEquation(), variables, 0);
                         res.add(mathEquation);
                         continue;
                     }
-                    mathEquation = new MathEquation(equation, variables, result);
+                    mathEquation = new MathEquation(eq.get(i).getEquation(), variables, result);
                     res.add(mathEquation);
                 }
                 break;
@@ -61,7 +61,7 @@ public class GeneralCalculation {
                     } catch (IllegalArgumentException e){
                         addMistake(i+1, e.getMessage());
                         //variables = "Error: " + variables;
-                        mathEquation = new MathEquation(equation, variables, 0);
+                        mathEquation = new MathEquation(eq.get(i).getEquation(), variables, 0);
                         res.add(mathEquation);
                         continue;
                     }
@@ -70,11 +70,11 @@ public class GeneralCalculation {
                     } catch (IllegalArgumentException | ArithmeticException e){
                         addMistake(i+1, e.getMessage());
                         //equation = "Error: " + equation;
-                        mathEquation = new MathEquation(equation, variables, 0);
+                        mathEquation = new MathEquation(eq.get(i).getEquation(), variables, 0);
                         res.add(mathEquation);
                         continue;
                     }
-                    mathEquation = new MathEquation(equation, variables, result);
+                    mathEquation = new MathEquation(eq.get(i).getEquation(), variables, result);
                     res.add(mathEquation);
                 }
                 break;
@@ -89,7 +89,7 @@ public class GeneralCalculation {
                     } catch (IllegalArgumentException e){
                         addMistake(i+1, e.getMessage());
                         //variables = "Error: " + variables;
-                        mathEquation = new MathEquation(equation, variables, 0);
+                        mathEquation = new MathEquation(eq.get(i).getEquation(), variables, 0);
                         res.add(mathEquation);
                         continue;
                     }
@@ -98,11 +98,11 @@ public class GeneralCalculation {
                     } catch (IllegalArgumentException | ArithmeticException e){
                         addMistake(i+1, e.getMessage());
                         //equation = "Error: " + equation;
-                        mathEquation = new MathEquation(equation, variables, 0);
+                        mathEquation = new MathEquation(eq.get(i).getEquation(), variables, 0);
                         res.add(mathEquation);
                         continue;
                     }
-                    mathEquation = new MathEquation(equation, variables, result);
+                    mathEquation = new MathEquation(eq.get(i).getEquation(), variables, result);
                     res.add(mathEquation);
                 }
                 break;
