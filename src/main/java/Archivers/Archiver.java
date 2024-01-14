@@ -28,10 +28,10 @@ public class Archiver {
     public static void archive (String nameOfFolder, FileModification fileModification) {
         try{
             switch (fileModification) {
-                case ARCHIVED_ZIP:
+                case ARCHIVED_ZIP, ENCRYPTED_THEN_ARCHIVED_ZIP, ARCHIVED_ZIP_THEN_ENCRYPTED:
                     ZipFileManager.zipFiles(nameOfFolder);
                     break;
-                case ARCHIVED_RAR:
+                case ARCHIVED_RAR, ENCRYPTED_THEN_ARCHIVED_RAR, ARCHIVED_RAR_THEN_ENCRYPTED:
                     WinRARFileManager.createRAR(nameOfFolder, "D:\\Other project\\Java\\end-to-end_project\\"+nameOfFolder+".rar");
                     break;
             }
