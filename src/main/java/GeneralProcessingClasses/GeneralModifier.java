@@ -2,19 +2,20 @@ package GeneralProcessingClasses;
 
 import AdditionalClasses.FileFilterByExtension;
 import AdditionalClasses.FileModification;
-import Archivers.WinRARFileManager;
-import Archivers.ZipFileManager;
 import Encryption.Encrypter;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import static Archivers.Archiver.archive;
 import static Archivers.Archiver.dearchive;
 
 public class GeneralModifier {
-    public static void unmodifie(String nameOfArchive, String directoryName, String key, FileModification fileModification) {
+    String nameOfArchive;
+    String directoryName;
+    String key;
+    FileModification fileModification;
+    public void unmodifie() {
         try{
             switch (fileModification) {
                 case ARCHIVED_ZIP, ARCHIVED_RAR:
@@ -47,35 +48,35 @@ public class GeneralModifier {
         }
     }
 
-    public static void modifie(String nameOfFolder, String key, FileModification fileModification) {
+    public void modifie() {
         try{
             switch (fileModification) {
                 case ARCHIVED_ZIP, ARCHIVED_RAR:
-                    archive(nameOfFolder, fileModification);
+                    archive(directoryName, fileModification);
                     break;
                 case ENCRYPTED_THEN_ARCHIVED_RAR, ENCRYPTED_THEN_ARCHIVED_ZIP:
-                    List<String> files= FileFilterByExtension.getFilesByExtensions(nameOfFolder, ".txt", ".xml", ".json");
+                    List<String> files= FileFilterByExtension.getFilesByExtensions(directoryName, ".txt", ".xml", ".json");
                     for (String file: files){
-                        file = nameOfFolder + "\\" + file;
+                        file = directoryName + "\\" + file;
                         String newFile = file + ".enc";
                         Encrypter.encrypt(file, newFile, key);
                     }
-                    archive(nameOfFolder, fileModification);
+                    archive(directoryName, fileModification);
                     break;
                 case ARCHIVED_RAR_THEN_ENCRYPTED, ARCHIVED_ZIP_THEN_ENCRYPTED:
-                    archive(nameOfFolder, fileModification);
+                    archive(directoryName, fileModification);
                     if(FileModification.ARCHIVED_RAR_THEN_ENCRYPTED == fileModification){
-                        Encrypter.encrypt(nameOfFolder + ".rar", nameOfFolder + ".rar.enc", key);
-                        File file = new File(nameOfFolder + ".rar");
+                        Encrypter.encrypt(directoryName + ".rar", directoryName + ".rar.enc", key);
+                        File file = new File(directoryName + ".rar");
                         file.delete();
                     } else {
-                        Encrypter.encrypt(nameOfFolder + ".zip", nameOfFolder + ".zip.enc", key);
-                        File file = new File(nameOfFolder + ".zip");
+                        Encrypter.encrypt(directoryName + ".zip", directoryName + ".zip.enc", key);
+                        File file = new File(directoryName + ".zip");
                         file.delete();
                     }
                     break;
                 case ENCRYPTED:
-                    Encrypter.encrypt(nameOfFolder, nameOfFolder + ".enc", key);
+                    Encrypter.encrypt(directoryName, directoryName + ".enc", key);
                 case NO_MODIFICATION:
                     break;
             }
@@ -107,3 +108,14 @@ public class GeneralModifier {
         }
     }
 }
+
+
+interface GeneralModifierBuilder {
+    GeneralModifierBuilder setNameOfArchive(String nameOfArchive);
+    GeneralModifierBuilder setDirectoryName(String directoryName);
+    GeneralModifierBuilder setKey(String key);
+    GeneralModifierBuilder setFileModification(FileModification fileModification);
+    GeneralModifier build();
+}
+
+
