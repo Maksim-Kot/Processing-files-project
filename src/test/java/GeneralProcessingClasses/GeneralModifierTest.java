@@ -31,10 +31,22 @@ class GeneralModifierTest {
             throw new RuntimeException(e);
         }
         FileModification fileModification = FileModification.ARCHIVED_RAR;
-        GeneralModifier.modifie(nameOfFolder, "nothing", fileModification);
+
+        GeneralModifierBuilderImpl modifierBuilder = new GeneralModifierBuilderImpl();
+        modifierBuilder.setDirectoryName(nameOfFolder);
+        modifierBuilder.setFileModification(fileModification);
+
+        GeneralModifierBuilderImpl unmodifierBuilder = new GeneralModifierBuilderImpl();
+        unmodifierBuilder.setNameOfArchive(nameOfFolder + ".rar");
+        unmodifierBuilder.setDirectoryName(nameOfOutFolder);
+        unmodifierBuilder.setFileModification(fileModification);
+
+        GeneralModifier generalMod = modifierBuilder.build();
+        generalMod.modifie();
         assertTrue(new File(nameOfFolder + ".rar").exists());
-        GeneralModifier.unmodifie(nameOfFolder + ".rar", nameOfOutFolder,
-                "nothing", fileModification);
+
+        GeneralModifier generalUnmod = unmodifierBuilder.build();
+        generalUnmod.unmodifie();
         assertTrue(new File(nameOfOutFolder + nameOfFile).exists());
     }
 
@@ -52,10 +64,22 @@ class GeneralModifierTest {
             throw new RuntimeException(e);
         }
         FileModification fileModification = FileModification.ARCHIVED_ZIP;
-        GeneralModifier.modifie(nameOfFolder, "nothing", fileModification);
+
+        GeneralModifierBuilderImpl modifierBuilder = new GeneralModifierBuilderImpl();
+        modifierBuilder.setDirectoryName(nameOfFolder);
+        modifierBuilder.setFileModification(fileModification);
+
+        GeneralModifierBuilderImpl unmodifierBuilder = new GeneralModifierBuilderImpl();
+        unmodifierBuilder.setNameOfArchive(nameOfFolder + ".zip");
+        unmodifierBuilder.setDirectoryName(nameOfOutFolder);
+        unmodifierBuilder.setFileModification(fileModification);
+
+        GeneralModifier generalMod = modifierBuilder.build();
+        generalMod.modifie();
         assertTrue(new File(nameOfFolder + ".zip").exists());
-        GeneralModifier.unmodifie(nameOfFolder + ".zip", nameOfOutFolder,
-                "nothing", fileModification);
+
+        GeneralModifier generalUnmod = unmodifierBuilder.build();
+        generalUnmod.unmodifie();
         assertTrue(new File(nameOfOutFolder + nameOfFile).exists());
     }
 
@@ -71,10 +95,24 @@ class GeneralModifierTest {
             throw new RuntimeException(e);
         }
         FileModification fileModification = FileModification.ENCRYPTED;
-        GeneralModifier.modifie(nameOfFile, "nothing to do-do", fileModification);
+
+        GeneralModifierBuilderImpl modifierBuilder = new GeneralModifierBuilderImpl();
+        modifierBuilder.setDirectoryName(nameOfFile);
+        modifierBuilder.setKey("nothing to do-do");
+        modifierBuilder.setFileModification(fileModification);
+
+        GeneralModifierBuilderImpl unmodifierBuilder = new GeneralModifierBuilderImpl();
+        unmodifierBuilder.setNameOfArchive(nameOfFile + ".enc");
+        unmodifierBuilder.setDirectoryName(nameOfOutFile);
+        unmodifierBuilder.setKey("nothing to do-do");
+        unmodifierBuilder.setFileModification(fileModification);
+
+        GeneralModifier generalMod = modifierBuilder.build();
+        generalMod.modifie();
         assertTrue(new File(nameOfFile + ".enc").exists());
-        GeneralModifier.unmodifie(nameOfFile + ".enc", nameOfOutFile,
-                "nothing to do-do", fileModification);
+
+        GeneralModifier generalUnmod = unmodifierBuilder.build();
+        generalUnmod.unmodifie();
         assertTrue(new File(nameOfOutFile).exists());
     }
 
@@ -92,10 +130,24 @@ class GeneralModifierTest {
             throw new RuntimeException(e);
         }
         FileModification fileModification = FileModification.ENCRYPTED_THEN_ARCHIVED_RAR;
-        GeneralModifier.modifie(nameOfFolder, "nothing to do-do", fileModification);
+
+        GeneralModifierBuilderImpl modifierBuilder = new GeneralModifierBuilderImpl();
+        modifierBuilder.setDirectoryName(nameOfFolder);
+        modifierBuilder.setKey("nothing to do-do");
+        modifierBuilder.setFileModification(fileModification);
+
+        GeneralModifierBuilderImpl unmodifierBuilder = new GeneralModifierBuilderImpl();
+        unmodifierBuilder.setNameOfArchive(nameOfFolder + ".rar");
+        unmodifierBuilder.setDirectoryName(nameOfOutFolder);
+        unmodifierBuilder.setKey("nothing to do-do");
+        unmodifierBuilder.setFileModification(fileModification);
+
+        GeneralModifier generalMod = modifierBuilder.build();
+        generalMod.modifie();
         assertTrue(new File(nameOfFolder + ".rar").exists());
-        GeneralModifier.unmodifie(nameOfFolder + ".rar", nameOfOutFolder,
-                "nothing to do-do", fileModification);
+
+        GeneralModifier generalUnmod = unmodifierBuilder.build();
+        generalUnmod.unmodifie();
         assertTrue(new File(nameOfOutFolder + nameOfFile).exists());
         assertTrue(new File(nameOfOutFolder + nameOfFile + ".enc").exists());
     }
@@ -114,10 +166,24 @@ class GeneralModifierTest {
             throw new RuntimeException(e);
         }
         FileModification fileModification = FileModification.ENCRYPTED_THEN_ARCHIVED_ZIP;
-        GeneralModifier.modifie(nameOfFolder, "nothing to do-do", fileModification);
+
+        GeneralModifierBuilderImpl modifierBuilder = new GeneralModifierBuilderImpl();
+        modifierBuilder.setDirectoryName(nameOfFolder);
+        modifierBuilder.setKey("nothing to do-do");
+        modifierBuilder.setFileModification(fileModification);
+
+        GeneralModifierBuilderImpl unmodifierBuilder = new GeneralModifierBuilderImpl();
+        unmodifierBuilder.setNameOfArchive(nameOfFolder + ".zip");
+        unmodifierBuilder.setDirectoryName(nameOfOutFolder);
+        unmodifierBuilder.setKey("nothing to do-do");
+        unmodifierBuilder.setFileModification(fileModification);
+
+        GeneralModifier generalMod = modifierBuilder.build();
+        generalMod.modifie();
         assertTrue(new File(nameOfFolder + ".zip").exists());
-        GeneralModifier.unmodifie(nameOfFolder + ".zip", nameOfOutFolder,
-                "nothing to do-do", fileModification);
+
+        GeneralModifier generalUnmod = unmodifierBuilder.build();
+        generalUnmod.unmodifie();
         assertTrue(new File(nameOfOutFolder + nameOfFile).exists());
         assertTrue(new File(nameOfOutFolder + nameOfFile + ".enc").exists());
     }
@@ -136,10 +202,24 @@ class GeneralModifierTest {
             throw new RuntimeException(e);
         }
         FileModification fileModification = FileModification.ARCHIVED_RAR_THEN_ENCRYPTED;
-        GeneralModifier.modifie(nameOfFolder, "nothing to do-do", fileModification);
+
+        GeneralModifierBuilderImpl modifierBuilder = new GeneralModifierBuilderImpl();
+        modifierBuilder.setDirectoryName(nameOfFolder);
+        modifierBuilder.setKey("nothing to do-do");
+        modifierBuilder.setFileModification(fileModification);
+
+        GeneralModifierBuilderImpl unmodifierBuilder = new GeneralModifierBuilderImpl();
+        unmodifierBuilder.setNameOfArchive(nameOfFolder + ".rar.enc");
+        unmodifierBuilder.setDirectoryName(nameOfOutFolder);
+        unmodifierBuilder.setKey("nothing to do-do");
+        unmodifierBuilder.setFileModification(fileModification);
+
+        GeneralModifier generalMod = modifierBuilder.build();
+        generalMod.modifie();
         assertTrue(new File(nameOfFolder + ".rar.enc").exists());
-        GeneralModifier.unmodifie(nameOfFolder + ".rar.enc", nameOfOutFolder,
-                "nothing to do-do", fileModification);
+
+        GeneralModifier generalUnmod = unmodifierBuilder.build();
+        generalUnmod.unmodifie();
         assertTrue(new File(nameOfOutFolder + nameOfFile).exists());
     }
 
@@ -157,10 +237,24 @@ class GeneralModifierTest {
             throw new RuntimeException(e);
         }
         FileModification fileModification = FileModification.ARCHIVED_ZIP_THEN_ENCRYPTED;
-        GeneralModifier.modifie(nameOfFolder, "nothing to do-do", fileModification);
+
+        GeneralModifierBuilderImpl modifierBuilder = new GeneralModifierBuilderImpl();
+        modifierBuilder.setDirectoryName(nameOfFolder);
+        modifierBuilder.setKey("nothing to do-do");
+        modifierBuilder.setFileModification(fileModification);
+
+        GeneralModifierBuilderImpl unmodifierBuilder = new GeneralModifierBuilderImpl();
+        unmodifierBuilder.setNameOfArchive(nameOfFolder + ".zip.enc");
+        unmodifierBuilder.setDirectoryName(nameOfOutFolder);
+        unmodifierBuilder.setKey("nothing to do-do");
+        unmodifierBuilder.setFileModification(fileModification);
+
+        GeneralModifier generalMod = modifierBuilder.build();
+        generalMod.modifie();
         assertTrue(new File(nameOfFolder + ".zip.enc").exists());
-        GeneralModifier.unmodifie(nameOfFolder + ".zip.enc", nameOfOutFolder,
-                "nothing to do-do", fileModification);
+
+        GeneralModifier generalUnmod = unmodifierBuilder.build();
+        generalUnmod.unmodifie();
         assertTrue(new File(nameOfOutFolder + nameOfFile).exists());
     }
 
