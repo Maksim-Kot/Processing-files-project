@@ -4,6 +4,7 @@ import AdditionalClasses.*;
 import GeneralProcessingClasses.GeneralModifier;
 import EquationClass.MathEquation;
 import GeneralProcessingClasses.GeneralCalculation;
+import GeneralProcessingClasses.GeneralModifierBuilderImpl;
 import GeneralProcessingClasses.GeneralReadAndWrite;
 
 import java.nio.file.Paths;
@@ -14,6 +15,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        GeneralModifier generalModifier = null;
+        GeneralModifierBuilderImpl modifierBuilder = null;
 
         FileModification fileModification = null;
         FileTypeAndMethod fileTypeAndMethod = null;
@@ -184,8 +188,25 @@ public class Main {
 
 
                     // Unmodified file
+                    switch (fileModification) {
+                        case ARCHIVED_RAR, ARCHIVED_ZIP:
+                            modifierBuilder = new GeneralModifierBuilderImpl();
+                            modifierBuilder.setNameOfArchive(archiverName);
+                            modifierBuilder.setDirectoryName(outputFolderForArchiver);
+                            modifierBuilder.setFileModification(fileModification);
+                            generalModifier = modifierBuilder.build();
+                            break;
+                        case ENCRYPTED_THEN_ARCHIVED_RAR, ENCRYPTED_THEN_ARCHIVED_ZIP:
+                            modifierBuilder = new GeneralModifierBuilderImpl();
+                            modifierBuilder.setNameOfArchive(archiverName);
+                            modifierBuilder.setDirectoryName(outputFolderForArchiver);
+                            modifierBuilder.setKey(key);
+                            modifierBuilder.setFileModification(fileModification);
+                            generalModifier = modifierBuilder.build();
+                            break;
+                    }
                     try{
-                        GeneralModifier.unmodifie(archiverName, outputFolderForArchiver, key, fileModification);
+                        generalModifier.unmodifie();
                         System.out.println("Files were unmodified successfully");
                     }catch (RuntimeException e){
                         System.out.println("Problems with file unmodifying:");
@@ -257,8 +278,15 @@ public class Main {
 
 
                     // Unmodified file
+                    modifierBuilder = new GeneralModifierBuilderImpl();
+                    modifierBuilder.setNameOfArchive(archiverName);
+                    modifierBuilder.setDirectoryName(outputFolderForArchiver);
+                    modifierBuilder.setKey(key);
+                    modifierBuilder.setFileModification(fileModification);
+                    generalModifier = modifierBuilder.build();
+
                     try{
-                        GeneralModifier.unmodifie(archiverName, outputFolderForArchiver, key, fileModification);
+                        generalModifier.unmodifie();
                         System.out.println("Files were unmodified successfully");
                     }catch (RuntimeException e){
                         System.out.println("Problems with file unmodifying:");
@@ -312,10 +340,14 @@ public class Main {
                 case 1:
                     fileModification = null;
                     archiverName = null;
+                    generalModifier = null;
+                    modifierBuilder = null;
                     break;
                 case 2:
                     fileModification = null;
                     archiverName = null;
+                    generalModifier = null;
+                    modifierBuilder = null;
                     continue;
                 case 3:
                     return;
@@ -614,9 +646,12 @@ public class Main {
             // Writing file
             try {
                 GeneralReadAndWrite.writeFile(calculatedEq, nameOfFileToSave, fileTypeAndMethod);
+                System.out.println("The file was written successfully");
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
+
+            System.out.println("\n"); // For space
 
             System.out.println("Select next action (enter the number):\n" +
                     "1) Go to next step\n" +
@@ -748,7 +783,7 @@ public class Main {
                     "If yes, press 'Enter', otherwise enter the folder name:");
 
             while (true) {
-                 String input = scanner.nextLine();
+                String input = scanner.nextLine();
 
                 if (input.isEmpty()) {
                     break;
@@ -797,16 +832,37 @@ public class Main {
                     }
                 }
 
+                modifierBuilder = new GeneralModifierBuilderImpl();
+                modifierBuilder.setDirectoryName(fileName);
+                modifierBuilder.setKey(key);
+                modifierBuilder.setFileModification(fileModification);
+                generalModifier = modifierBuilder.build();
+
                 try{
-                    GeneralModifier.modifie(fileName, key, fileModification);
+                    generalModifier.modifie();
                     System.out.println("Files were modified successfully");
                 }catch (RuntimeException e){
                     System.out.println("Problems with file modifying:");
                     System.out.println(e.getMessage());
                 }
             } else if (FileModification.NO_MODIFICATION != fileModification){
+                switch (fileModification) {
+                    case ARCHIVED_RAR, ARCHIVED_ZIP:
+                        modifierBuilder = new GeneralModifierBuilderImpl();
+                        modifierBuilder.setDirectoryName(nameOfFolderToSave);
+                        modifierBuilder.setFileModification(fileModification);
+                        generalModifier = modifierBuilder.build();
+                        break;
+                    default:
+                        modifierBuilder = new GeneralModifierBuilderImpl();
+                        modifierBuilder.setDirectoryName(nameOfFolderToSave);
+                        modifierBuilder.setKey(key);
+                        modifierBuilder.setFileModification(fileModification);
+                        generalModifier = modifierBuilder.build();
+                        break;
+                }
                 try{
-                    GeneralModifier.modifie(nameOfFolderToSave, key, fileModification);
+                    generalModifier.modifie();
                     System.out.println("Files were modified successfully");
                 }catch (RuntimeException e){
                     System.out.println("Problems with file modifying:");
