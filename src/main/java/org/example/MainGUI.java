@@ -14,11 +14,11 @@ public class MainGUI extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainGUI.class.getResource("process-view.fxml"));
         Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), 600, 400);
+            scene = new Scene(fxmlLoader.load(), 620, 450);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        stage.setTitle("Processing file");
+        stage.setTitle("Processing file(s)");
         stage.setScene(scene);
         stage.show();
     }

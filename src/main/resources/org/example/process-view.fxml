@@ -23,6 +23,10 @@
          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
          <TextField fx:id="unmodFolder" GridPane.columnIndex="3" GridPane.rowIndex="1" />
@@ -51,6 +55,15 @@
          <Label text="File to calculate" GridPane.columnIndex="3" GridPane.rowIndex="3" />
          <Button fx:id="folderButton" mnemonicParsing="false" onAction="#folderButtonClick" text="Submit folder" GridPane.columnIndex="2" GridPane.rowIndex="4" />
          <Button fx:id="calcButton" mnemonicParsing="false" onAction="#calcButtonClick" text="Submit calculation" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+         <ChoiceBox fx:id="mod" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+         <Button fx:id="modFolderButton" mnemonicParsing="false" onAction="#modFolderButtonClick" text="Get file(s) (optional))" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+         <ChoiceBox fx:id="modFile" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+         <Button fx:id="modButton" mnemonicParsing="false" onAction="#modButtonClick" text="Submit" GridPane.columnIndex="4" GridPane.rowIndex="12" />
+         <Label text="Modifiy file(s)" GridPane.rowIndex="10" />
+         <Label text="Type of modification" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+         <Label text="Name of folder" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+         <Label text="File to encrypt (optional)" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+         <TextField fx:id="modFolder" GridPane.columnIndex="2" GridPane.rowIndex="11" />
       </children>
    </GridPane>
    <TextArea fx:id="outArea" prefHeight="200.0" prefWidth="200.0" />

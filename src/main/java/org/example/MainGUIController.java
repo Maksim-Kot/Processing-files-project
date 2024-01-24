@@ -77,6 +77,15 @@ public class MainGUIController implements Initializable {
     @FXML
     private Button calcButton;
 
+    @FXML
+    private ChoiceBox<String> mod;
+    @FXML
+    private ChoiceBox<String> modFile;
+    @FXML
+    private TextField modFolder;
+    @FXML
+    private Button modButton;
+
 
     private String[] unmodification = {"The file has been archived (ZIP)",
             "The file has been archived (RAR)",
@@ -101,6 +110,14 @@ public class MainGUIController implements Initializable {
             "Write XML file using the function",
             "Write TXT file"};
 
+    private String[] modification = {"The file need to be archived (ZIP)",
+            "The file need to be archived (RAR)",
+            "The file need to be encrypted",
+            "The file need to be encrypted and then archived (ZIP)",
+            "The file need to be encrypted and then archived (RAR)",
+            "The file need to be archived (ZIP) and then encrypted",
+            "The file need to be archived (RAR) and then encrypted"};
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -108,7 +125,9 @@ public class MainGUIController implements Initializable {
         procTypeReading.getItems().addAll(procReading);
         procTypeCalc.getItems().addAll(procCalc);
         procTypeWriting.getItems().addAll(procWriting);
+        mod.getItems().addAll(modification);
         unmod.setOnAction(this::setFilesUnMod);
+        mod.setOnAction(this::reloadFilesMod);
         outArea.setText("This program will help you:\n" +
                 "- perform operations on files;\n" +
                 "- calculate the values of expressions written in files;\n" +
@@ -356,6 +375,113 @@ public class MainGUIController implements Initializable {
             }
         } else {
             outArea.appendText("Choose all fields");
+        }
+    }
+
+    private void reloadFilesMod(ActionEvent actionEvent) {
+        modFile.getItems().clear();
+    }
+    public void modFolderButtonClick(ActionEvent actionEvent) {
+        outArea.clear();
+        if("The file need to be encrypted" == mod.getValue() && !modFolder.getText().isEmpty()){
+            if(modFolder.getText().equals("files")){
+                folderPath = "files";
+            } else {
+                folderPath = "files\\" + modFolder.getText();
+            }
+            extensions = new String[]{".txt", ".xml", ".json"};
+            matchingFiles = FileFilterByExtension.getFilesByExtensions(folderPath, extensions);
+
+            if (!matchingFiles.isEmpty())
+            {
+                modFile.getItems().clear();
+                modFile.getItems().addAll(matchingFiles);
+            } else
+            {
+                modFile.getItems().clear();
+                outArea.setText("There are no files with the specified extensions in the specified folder");
+            }
+        } else {
+            outArea.setText("Choose all fields");
+        }
+    }
+
+    public void modButtonClick(ActionEvent actionEvent) {
+        outArea.clear();
+        if(null != mod && !modFolder.getText().isEmpty()){
+            String input = mod.getValue();
+            switch (input) {
+                case "The file need to be archived (ZIP)":
+                    fileModification = FileModification.ARCHIVED_ZIP;
+                    break;
+                case "The file need to be archived (RAR)":
+                    fileModification = FileModification.ARCHIVED_RAR;
+                    break;
+                case "The file need to be encrypted":
+                    fileModification = FileModification.ENCRYPTED;
+                    break;
+                case "The file need to be encrypted and then archived (ZIP)":
+                    fileModification = FileModification.ENCRYPTED_THEN_ARCHIVED_ZIP;
+                    break;
+                case "The file need to be encrypted and then archived (RAR)":
+                    fileModification = FileModification.ENCRYPTED_THEN_ARCHIVED_RAR;
+                    break;
+                case "The file need to be archived (ZIP) and then encrypted":
+                    fileModification = FileModification.ARCHIVED_ZIP_THEN_ENCRYPTED;
+                    break;
+                case "The file need to be archived (RAR) and then encrypted":
+                    fileModification = FileModification.ARCHIVED_RAR_THEN_ENCRYPTED;
+                    break;
+            }
+            if(FileModification.ENCRYPTED == fileModification) {
+                if(null != modFile.getValue()){
+                    fileName = folderPath + "\\" + modFile.getValue();
+
+                    modifierBuilder = new GeneralModifierBuilderImpl();
+                    modifierBuilder.setDirectoryName(fileName);
+                    modifierBuilder.setKey(key);
+                    modifierBuilder.setFileModification(fileModification);
+                    generalModifier = modifierBuilder.build();
+
+                    try{
+                        generalModifier.modifie();
+                        outArea.setText("Files were modified successfully");
+                    }catch (RuntimeException e){
+                        outArea.setText("Problems with file modifying:\n" + e.getMessage());
+                    }
+                } else {
+                    outArea.setText("Choose all fields");
+                }
+            } else {
+                if(modFolder.getText().equals("files")){
+                    nameOfFolderToSave = "files";
+                } else {
+                    nameOfFolderToSave = "files\\" + modFolder.getText();
+                }
+                switch (fileModification) {
+                    case ARCHIVED_RAR, ARCHIVED_ZIP:
+                        modifierBuilder = new GeneralModifierBuilderImpl();
+                        modifierBuilder.setDirectoryName(nameOfFolderToSave);
+                        modifierBuilder.setFileModification(fileModification);
+                        generalModifier = modifierBuilder.build();
+                        break;
+                    default:
+                        modifierBuilder = new GeneralModifierBuilderImpl();
+                        modifierBuilder.setDirectoryName(nameOfFolderToSave);
+                        modifierBuilder.setKey(key);
+                        modifierBuilder.setFileModification(fileModification);
+                        generalModifier = modifierBuilder.build();
+                        break;
+                }
+                try{
+                    generalModifier.modifie();
+                    outArea.setText("Files were modified successfully");
+                }catch (RuntimeException e){
+                    outArea.setText("Problems with file modifying:\n" + e.getMessage());
+                }
+            }
+        } else {
+            outArea.setText("Choose all fields");
         }
     }
 }
