@@ -221,6 +221,9 @@ public class MainGUIController implements Initializable {
                     generalModifier = modifierBuilder.build();
                     break;
             }
+
+            FolderCreator.createFolder(outputFolderForArchiver);
+
             try{
                 generalModifier.unmodifie();
                 outArea.setText("Files were unmodified successfully");
