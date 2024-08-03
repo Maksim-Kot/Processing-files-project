@@ -1,5 +1,7 @@
 # Processing-files-project
 
+**ATTENTION: Before using the project, please ensure that a *files* directory is created in the root of the project. Additionally, *Rar.exe* and *UnRAR.exe* files must be present in the root directory.**
+
 ## Project Description
 
 This project is an application for working with and processing files in various formats, such as plain text, XML, and JSON. The application is implemented using both procedural and object-oriented programming (OOP) approaches. The project uses the Builder design pattern for comparison with classic approaches. The application supports both command-line interface (CLI) and graphical user interface (GUI).
