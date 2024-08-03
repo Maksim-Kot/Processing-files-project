@@ -37,6 +37,7 @@ build/
 ### Mac OS ###
 .DS_Store
 
+### Input/Output###
 test.json
 test.xml
 test.txt
@@ -45,3 +46,7 @@ test.txt
 *.xml
 !pom.xml
 /files
+
+### Archive/Dearchive ###
+Rar.exe
+UnRAR.exe
