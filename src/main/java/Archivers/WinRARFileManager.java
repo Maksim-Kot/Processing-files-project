@@ -1,7 +1,9 @@
 package Archivers;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class WinRARFileManager
 {
@@ -11,7 +13,9 @@ public class WinRARFileManager
         File targetFile = new File(targetRAR);
         targetFile.getParentFile().mkdirs(); // Create directories if they don't exist
 
-        ProcessBuilder processBuilder = new ProcessBuilder("C:\\Program Files\\WinRAR\\WinRAR.exe", "a", targetRAR, "*.*");
+        String absolutePath = targetFile.getAbsolutePath();
+
+        ProcessBuilder processBuilder = new ProcessBuilder("./Rar.exe", "a", absolutePath, "*.*");
         processBuilder.directory(new File(sourceDir));
 
         // If you need to wait for the process to complete
@@ -33,7 +37,7 @@ public class WinRARFileManager
             destDir.mkdirs();
         }
 
-        ProcessBuilder processBuilder = new ProcessBuilder("C:\\Program Files\\WinRAR\\WinRAR.exe", "x", sourceRAR, targetDir);
+        ProcessBuilder processBuilder = new ProcessBuilder("./UnRAR.exe", "x", sourceRAR, targetDir);
         Process process = processBuilder.start();
 
         // If you need to wait for the process to complete

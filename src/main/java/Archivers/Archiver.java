@@ -32,7 +32,7 @@ public class Archiver {
                     ZipFileManager.zipFiles(nameOfFolder);
                     break;
                 case ARCHIVED_RAR, ENCRYPTED_THEN_ARCHIVED_RAR, ARCHIVED_RAR_THEN_ENCRYPTED:
-                    WinRARFileManager.createRAR(nameOfFolder, "D:\\Other project\\Java\\end-to-end_project\\"+nameOfFolder+".rar");
+                    WinRARFileManager.createRAR(nameOfFolder, nameOfFolder+".rar");
                     break;
             }
         } catch (IllegalArgumentException | IOException e) {

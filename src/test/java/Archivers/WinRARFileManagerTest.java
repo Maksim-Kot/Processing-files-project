@@ -36,7 +36,7 @@ class WinRARFileManagerTest {
             throw new RuntimeException(e);
         }
         try {
-            WinRARFileManager.createRAR(nameOfFolder, "D:\\Other project\\Java\\end-to-end_project\\"+nameOfFolder+".rar");
+            WinRARFileManager.createRAR(nameOfFolder, nameOfFolder+".rar");
             WinRARFileManager.extractRAR(nameOfFolder + ".rar", nameOfOutFolder);
         } catch (IOException e) {
             throw new RuntimeException(e);
