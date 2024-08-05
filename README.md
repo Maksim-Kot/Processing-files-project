@@ -78,6 +78,10 @@ The application provides two interface options:
 1. **Command-Line Interface (CLI)**: Supports command and parameter input via the command line.
 2. **Graphical User Interface (GUI)**: Implemented using [JavaFX](https://github.com/openjdk/jfx), a popular Java library for creating modern user interfaces. JavaFX provides rich user interface components and features to enhance the application's usability.
 
+## Testing
+
+The project utilizes [JUnit](https://github.com/junit-team/junit5/) for testing to ensure the correctness and reliability of its functionality. JUnit provides a framework for writing and running unit tests in Java, allowing for comprehensive verification of the application's features and logic. Tests are designed to cover various aspects of the application, including file processing, encryption, and expression evaluation, ensuring that all components perform as expected and any issues are promptly identified and addressed.
+
 ## Conclusion
 
 The project provides powerful tools for file processing and analysis, supporting flexibility in using various methods and approaches. It covers a broad range of knowledge and skills, from file handling and design patterns to user interface creation.
